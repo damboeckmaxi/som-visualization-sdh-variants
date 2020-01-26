@@ -34,13 +34,17 @@ def __iterate_input_vectors__(weight_vectors, input_vectors, sdh_variant, n):
 
 
 def __calc_weight_grid_equal__(distances, df, n):
+    order_df = pd.DataFrame()
+    order_df[0] = distances[0]
+    order_df[1] = 0
+    for x in range(1, len(distances.columns)):
+        new_col = pd.DataFrame()
+        new_col[0] = distances[x]
+        new_col[1] = x
+        order_df = order_df.append(new_col)
+    order_df = order_df.nsmallest(n, 0)
     for i in range(0,n):
-        min_idx = distances.idxmin()
-        min_val = distances.min()
-        absolute_min = min_val.idxmin()
-        df[absolute_min][min_idx[absolute_min]] += 1
-        distances[absolute_min][min_idx[absolute_min]] = sys.maxsize
-        ## TODO optimize finding minimum
+        df[order_df.iloc[i][1]][order_df.iloc[i].name] += 1
     return df
 
 
