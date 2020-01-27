@@ -1,8 +1,8 @@
 import os
 import argparse
 
-from src.som import read_weight_file, read_input_vector_file
 from src.som.ToolboxGenerator import ToolboxGenerator
+from src.utils.FileUtils import read_weight_file, read_input_vector_file
 
 
 # Define the argument parser for this program (including the --help-page)
@@ -11,8 +11,9 @@ def set_argument_parser():
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('path_to_somtools', help='The absolute system path to SOMTools')
-    parser.add_argument('dataset_prop_file', help='The name of the file containing the dataset-properties that get visualized'
-                                        ', ending with .prop. (i.e.: 10clusters_large.prop)')
+    parser.add_argument('dataset_prop_file',
+                        help='The name of the file containing the dataset-properties that get visualized'
+                             ', ending with .prop. (i.e.: 10clusters_large.prop)')
     parser.add_argument('input_vector_file', help='The name of the file containing the input-vectors'
                                                   ', ending with .vec (i.e.: 10clusters.vec')
     parser.add_argument('-c', '--cpus', help='The number of cpus that can be used for processing', type=int)
