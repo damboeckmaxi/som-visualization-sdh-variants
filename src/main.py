@@ -1,4 +1,3 @@
-import os
 import argparse
 
 from src.sdh.EqualSdh import EqualSdh
@@ -7,6 +6,7 @@ from src.sdh.NormalizedWeightedSdh import NormalizedWeightedSdh
 from src.sdh.WeightedSdh import WeightedSdh
 from src.som.ToolboxGenerator import ToolboxGenerator
 from src.utils.FileUtils import read_weight_file, read_input_vector_file
+from src.utils.Visualization import visualize
 
 
 # Define the argument parser for this program (including the --help-page)
@@ -58,6 +58,7 @@ def main():
     variant = choose_variant(args.variant, weight_vectors, input_vectors, args.n)
     sdh_weight_grid = variant.calculate()
     print(sdh_weight_grid)
+    visualize(sdh_weight_grid)
 
 
 if __name__ == '__main__':
