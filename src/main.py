@@ -1,13 +1,12 @@
 import os
 import argparse
-from som import create_som
 
-
-## Define the argumentparser for this programm (including the --help-page)
 from src.som import read_weight_file, read_input_vector_file
+from src.som.ToolboxGenerator import ToolboxGenerator
 
 
-def set_argumentparser():
+# Define the argument parser for this program (including the --help-page)
+def set_argument_parser():
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -20,20 +19,20 @@ def set_argumentparser():
     return parser
 
 
-## Parse the args needed for this step and create the som
+# Parse the args needed for this step and create the som
 def parse_args_and_create_som(args):
     path_to_somtools = args.path_to_somtools
     dataset_prop_file = args.dataset_prop_file
     cpus = args.cpus
-    if not cpus > 1:
+    if cpus is None or not cpus > 1:
         cpus = 1
-    create_som(path_to_somtools, dataset_prop_file, cpus)
+    generator = ToolboxGenerator(dataset_prop_file, path_to_somtools, cpus)
+    generator.generate()
 
 
 def main():
-    parser = set_argumentparser()
+    parser = set_argument_parser()
     args = parser.parse_args()
-    os.chdir('../')
     parse_args_and_create_som(args)
     weight_vectors = read_weight_file(args.dataset_prop_file.split('.')[0])
     input_vectors = read_input_vector_file(args.input_vector_file)
