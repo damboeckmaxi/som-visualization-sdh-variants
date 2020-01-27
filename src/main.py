@@ -1,11 +1,11 @@
 import os
 import argparse
 
-from som import create_som
+from src.som.ToolboxGenerator import ToolboxGenerator
 
 
-## Define the argumentparser for this programm (including the --help-page)
-def set_argumentparser():
+# Define the argument parser for this program (including the --help-page)
+def set_argument_parser():
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -16,20 +16,20 @@ def set_argumentparser():
     return parser
 
 
-## Parse the args needed for this step and create the som
+# Parse the args needed for this step and create the som
 def parse_args_and_create_som(parser):
     args = parser.parse_args()
     path_to_somtools = args.path_to_somtools
     dataset = args.dataset
     cpus = args.cpus
-    if not cpus > 1:
+    if cpus is None or not cpus > 1:
         cpus = 1
-    create_som(path_to_somtools, dataset, cpus)
+    generator = ToolboxGenerator(dataset, path_to_somtools, cpus)
+    generator.generate()
 
 
 def main():
-    parser = set_argumentparser()
-    os.chdir('../')
+    parser = set_argument_parser()
     parse_args_and_create_som(parser)
 
 
