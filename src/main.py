@@ -1,9 +1,12 @@
 import os
 import argparse
 
+from src.sdh.EqualSdh import EqualSdh
+from src.sdh.NormalizedSdh import NormalizedSdh
+from src.sdh.NormalizedWeightedSdh import NormalizedWeightedSdh
+from src.sdh.WeightedSdh import WeightedSdh
 from src.som.ToolboxGenerator import ToolboxGenerator
 from src.utils.FileUtils import read_weight_file, read_input_vector_file
-from src.sdh import calc_weight_grid
 
 
 # Define the argument parser for this program (including the --help-page)
@@ -36,14 +39,26 @@ def parse_args_and_create_som(args):
     generator.generate()
 
 
+def choose_variant(variant_name, weight_vectors, input_vectors, n):
+    variants = {
+        'equal': EqualSdh(weight_vectors, input_vectors, n),
+        'weighted': WeightedSdh(weight_vectors, input_vectors, n),
+        'normalized': NormalizedSdh(weight_vectors, input_vectors, n),
+        'normalized-weighted': NormalizedWeightedSdh(weight_vectors, input_vectors, n)
+    }
+    return variants.get(variant_name)
+
+
 def main():
     parser = set_argument_parser()
     args = parser.parse_args()
     parse_args_and_create_som(args)
     weight_vectors = read_weight_file(args.dataset_prop_file.split('.')[0])
     input_vectors = read_input_vector_file(args.input_vector_file)
-    sdh_weight_grid = calc_weight_grid(weight_vectors, input_vectors, args.variant, args.n)
+    variant = choose_variant(args.variant, weight_vectors, input_vectors, args.n)
+    sdh_weight_grid = variant.calculate()
     print(sdh_weight_grid)
+
 
 if __name__ == '__main__':
     main()
