@@ -1,5 +1,5 @@
 import pandas as pd
-from sdh.BaseSdh import BaseSdh
+from src.sdh.BaseSdh import BaseSdh
 
 
 # Concrete implementation of sdh variant

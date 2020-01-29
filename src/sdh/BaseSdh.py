@@ -28,7 +28,7 @@ class BaseSdh:
         for index, row in input_vectors_tsf.iterrows():
             distances = _calc_distances_vector_to_weight_vectors(row[0], self.weight_vectors)
             df = self._function(distances, df)
-            print(f'Processing input_vector nr {index}')
+            # print(f'Processing input_vector nr {index}')
             # TODO verbose output parameter with all processing-progress information
         return df
 

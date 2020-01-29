@@ -2,7 +2,7 @@ from os import path, listdir
 
 
 def som_files_exist(dataset):
-    return path.exists(f'../maps/{dataset}') and len(listdir(f'../maps/{dataset}')) > 0
+    return path.exists(f'maps/{dataset}') and len(listdir(f'maps/{dataset}')) > 0
 
 
 # Base class to generate a som
@@ -13,6 +13,8 @@ class SomGenerator:
     def generate(self, force=False):
         if force or not som_files_exist(self.dataset):
             self._generate()
+        else:
+            print('SOM is already generated for the given dataset.')
 
     def _generate(self):
         NotImplementedError()

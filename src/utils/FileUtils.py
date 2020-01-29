@@ -6,7 +6,7 @@ import pandas as pd
 # Read the input-vector file with the trainings data and export as one-dimensional Dataframe containing the vectors
 def read_input_vector_file(input_vector_file):
     df = pd.DataFrame()
-    with open(f'../datasets/{input_vector_file}', 'rb') as file:
+    with open(f'datasets/{input_vector_file}.vec', 'rb') as file:
         df = _read_vector_file_to_df(df, file)
     file.close()
     return df
@@ -15,7 +15,7 @@ def read_input_vector_file(input_vector_file):
 # Read the trained weight-vectors file and export as a DataFrame with corresponding weight-vectors
 def read_weight_file(dataset):
     df = pd.DataFrame()
-    with gzip.open(f'../maps/{dataset}/{dataset}.wgt.gz', 'rb') as file:
+    with gzip.open(f'maps/{dataset}/{dataset}.wgt.gz', 'rb') as file:
         df = _read_vector_file_to_df(df, file)
     file.close()
     return df
