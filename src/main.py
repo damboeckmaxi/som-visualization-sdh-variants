@@ -1,12 +1,13 @@
 import argparse
+from os import chdir
 
-from src.sdh.EqualSdh import EqualSdh
-from src.sdh.NormalizedSdh import NormalizedSdh
-from src.sdh.NormalizedWeightedSdh import NormalizedWeightedSdh
-from src.sdh.WeightedSdh import WeightedSdh
-from src.som.ToolboxGenerator import ToolboxGenerator
-from src.utils.FileUtils import read_weight_file, read_input_vector_file
-from src.utils.Visualization import visualize
+from sdh.EqualSdh import EqualSdh
+from sdh.NormalizedSdh import NormalizedSdh
+from sdh.NormalizedWeightedSdh import NormalizedWeightedSdh
+from sdh.WeightedSdh import WeightedSdh
+from som.ToolboxGenerator import ToolboxGenerator
+from utils.FileUtils import read_weight_file, read_input_vector_file
+from utils.Visualization import visualize
 
 
 # Define the argument parser for this program (including the --help-page)
@@ -17,7 +18,8 @@ def set_argument_parser():
     parser.add_argument('path_to_somtools', help='The absolute system path to SOMTools')
     parser.add_argument('dataset_prop_file',
                         help='The name of the file containing the dataset-properties that get visualized'
-                             ', ending with .prop. (i.e.: 10clusters_large.prop)')
+                             ', ending without .prop. (i.e.: 10clusters_large)')
+    # TODO either both files with or both without fileending (.prop, .vec)
     parser.add_argument('input_vector_file', help='The name of the file containing the input-vectors'
                                                   ', ending with .vec (i.e.: 10clusters.vec)')
     parser.add_argument('-c', '--cpus', help='The number of cpus that can be used for processing', type=int)
@@ -50,6 +52,7 @@ def choose_variant(variant_name, weight_vectors, input_vectors, n):
 
 
 def main():
+    chdir('src')
     parser = set_argument_parser()
     args = parser.parse_args()
     parse_args_and_create_som(args)
@@ -60,6 +63,3 @@ def main():
     print(sdh_weight_grid)
     visualize(sdh_weight_grid)
 
-
-if __name__ == '__main__':
-    main()
