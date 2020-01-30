@@ -12,7 +12,9 @@ class SomGenerator:
 
     def generate(self, force=False):
         if force or not som_files_exist(self.dataset):
+            print("Generating map for %s ..." % self.dataset)
             self._generate()
+            print("Generated SOM for %s ..." % self.dataset)
         else:
             print('SOM is already generated for the given dataset.')
 
