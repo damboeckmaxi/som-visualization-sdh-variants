@@ -1,5 +1,5 @@
 # som-visualization-sdh-variants
-Provides visualizations for different SDH-Variants for SOMs
+Provides visualizations for different SDH-Variants for SOMs. Further information is provided in the Jupyter notebook.
 
 # Prepare application
 * Install requirements before starting, i.e. with ```pip install -r requirements.txt```
