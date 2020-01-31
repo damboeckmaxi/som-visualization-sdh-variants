@@ -1,0 +1,8 @@
+outputDirectory=../maps/10clusters_small
+namePrefix=10clusters_small
+vectorFileName=../datasets/10clusters.vec
+templateFileName=../datasets/10clusters.tv
+xSize=20
+ySize=25
+learnRate=0.7
+numCycles=1000

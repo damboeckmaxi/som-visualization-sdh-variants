@@ -10,4 +10,5 @@ The Following requirements have to be made for the .prop-file:
 * vectorFileName=../datasets/<vec-name>
 * templateFileName=../datasets/<tv-name>
 
-while <prop-file-name> is the name of the property file without the .prop-ending
+while <prop-file-name> is the name of the property file without the .prop-ending.
+A few example-datasets are provided.(from http://www.ifs.tuwien.ac.at/dm/somtoolbox/datasets.html)
