@@ -16,9 +16,9 @@ def read_input_vector_file(input_vector_file):
 def read_weight_file(dataset):
     df = pd.DataFrame()
     with gzip.open(f'maps/{dataset}/{dataset}.wgt.gz', 'rb') as file:
-        df = _read_vector_file_to_df(df, file)
+        df, vec_dim = _read_vector_file_to_df(df, file)
     file.close()
-    return df
+    return df, vec_dim
 
 
 def _read_vector_file_to_df(df, file):

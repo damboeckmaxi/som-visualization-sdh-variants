@@ -59,7 +59,7 @@ def main():
     if som is not None:
         weight_vectors = som
     else:
-        weight_vectors = read_weight_file(args.dataset_prop_file.split('.')[0])
+        weight_vectors, vec_dim = read_weight_file(args.dataset_prop_file.split('.')[0])
     input_vectors, vec_dim = read_input_vector_file(args.input_vector_file)
     variant = choose_variant(args.variant, weight_vectors, input_vectors, args.n)
     sdh_weight_grid = variant.calculate()
