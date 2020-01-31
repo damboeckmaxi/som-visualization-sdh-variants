@@ -1,6 +1,7 @@
 from src.som.SomGenerator import SomGenerator
 from minisom import MiniSom
 import pandas as pd
+import numpy as np
 from src.utils.FileUtils import read_input_vector_file
 
 
@@ -17,5 +18,7 @@ class MiniSomGenerator(SomGenerator):
         input_vectors, vec_dim = read_input_vector_file(self.dataset)
         som = MiniSom(self.som_x, self.som_y, vec_dim, self.sigma, self.learning_rate)
         som.train_batch(input_vectors.to_numpy()[0], self.iterations)
-        print(som.get_weights())
-        return pd.DataFrame(som.get_weights())
+        df = pd.DataFrame()
+        for x in som.get_weights():
+            df = df.append(pd.DataFrame(x))
+        return df
