@@ -19,7 +19,6 @@ def set_argument_parser():
     parser.add_argument('dataset_prop_file',
                         help='The name of the file containing the dataset-properties that get visualized'
                              ', ending without .prop. (i.e.: 10clusters_large)')
-    # TODO either both files with or both without fileending (.prop, .vec)
     parser.add_argument('input_vector_file', help='The name of the file containing the input-vectors'
                                                   ', ending without .vec (i.e.: 10clusters)')
     parser.add_argument('-c', '--cpus', help='The number of cpus that can be used for processing', type=int)
