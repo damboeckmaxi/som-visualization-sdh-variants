@@ -5,6 +5,7 @@ from src.sdh.NormalizedSdh import NormalizedSdh
 from src.sdh.NormalizedWeightedSdh import NormalizedWeightedSdh
 from src.sdh.WeightedSdh import WeightedSdh
 from src.som.ToolboxGenerator import ToolboxGenerator
+from src.som.MiniSomGenerator import MiniSomGenerator
 from src.utils.FileUtils import read_weight_file, read_input_vector_file
 from src.utils.Visualization import visualize
 
@@ -36,8 +37,9 @@ def parse_args_and_create_som(args):
     cpus = args.cpus
     if cpus is None or not cpus > 1:
         cpus = 1
-    generator = ToolboxGenerator(dataset_prop_file, path_to_somtools, cpus)
-    generator.generate()
+    # generator = ToolboxGenerator(dataset_prop_file, path_to_somtools, cpus)
+    generator = MiniSomGenerator(args.dataset_prop_file, 20, 25)
+    return generator.generate()
 
 
 def choose_variant(variant_name, weight_vectors, input_vectors, n):
@@ -53,8 +55,11 @@ def choose_variant(variant_name, weight_vectors, input_vectors, n):
 def main():
     parser = set_argument_parser()
     args = parser.parse_args()
-    parse_args_and_create_som(args)
-    weight_vectors = read_weight_file(args.dataset_prop_file.split('.')[0])
+    som = parse_args_and_create_som(args)
+    if som is not None:
+        weight_vectors = som
+    else:
+        weight_vectors = read_weight_file(args.dataset_prop_file.split('.')[0])
     input_vectors = read_input_vector_file(args.input_vector_file)
     variant = choose_variant(args.variant, weight_vectors, input_vectors, args.n)
     sdh_weight_grid = variant.calculate()

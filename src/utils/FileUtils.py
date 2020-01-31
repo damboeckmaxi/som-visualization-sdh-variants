@@ -7,9 +7,9 @@ import pandas as pd
 def read_input_vector_file(input_vector_file):
     df = pd.DataFrame()
     with open(f'datasets/{input_vector_file}.vec', 'rb') as file:
-        df = _read_vector_file_to_df(df, file)
+        df, vec_dim = _read_vector_file_to_df(df, file)
     file.close()
-    return df
+    return df, vec_dim
 
 
 # Read the trained weight-vectors file and export as a DataFrame with corresponding weight-vectors
@@ -33,7 +33,7 @@ def _read_vector_file_to_df(df, file):
             if len(df.columns) == 0 or vec_dim == 0:
                 raise ValueError('Weight file has no correct Dimensional information.')
             xunit, yunit = _parse_weight_file_data(line, xdim, ydim, vec_dim, xunit, yunit, df)
-    return df
+    return df, vec_dim
 
 
 def _parse_weight_file_data(line, xdim, ydim, vec_dim, xunit, yunit, df):
